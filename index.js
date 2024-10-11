@@ -19,8 +19,13 @@ const config = {
   backgroundSpeedMultiplier: 0.2,
   speed: 4,
   santaWidth: 17,
-  santaHeight: 30
+  santaHeight: 30,
 };
+
+// Load sounds
+const backgroundSound = new Audio("background.mp3");
+const winSound = new Audio("win.mp3");
+const loseSound = new Audio("lose.mp3");
 
 const colours = {
   lightBg: "#79B4B7",
@@ -32,7 +37,7 @@ const colours = {
   platform: "#AB595A",
   platformTop: "#8C1415",
   em: "#DD4132",
-  skin: "#DF8680"
+  skin: "#DF8680",
 };
 
 const hills = [
@@ -40,20 +45,20 @@ const hills = [
     baseHeight: 140,
     amplitude: 20,
     stretch: 0.5,
-    colour: colours.lightHill
+    colour: colours.lightHill,
   },
   {
     baseHeight: 120,
     amplitude: 10,
     stretch: 1,
-    colour: colours.medHill
+    colour: colours.medHill,
   },
   {
     baseHeight: 90,
     amplitude: 20,
     stretch: 0.5,
-    colour: colours.darkHill
-  }
+    colour: colours.darkHill,
+  },
 ];
 
 const scoreElement = createElementStyle(
@@ -83,7 +88,8 @@ const restartButton = createElementStyle(
 for (let i = 0; i <= 30; i++) {
   createElementStyle(
     "i",
-    `font-size: ${3 * Math.random()}em;left: ${100 * Math.random()
+    `font-size: ${3 * Math.random()}em;left: ${
+      100 * Math.random()
     }%; animation-delay: ${10 * Math.random()}s, ${2 * Math.random()}s`,
     "."
   );
@@ -146,6 +152,9 @@ window.requestAnimationFrame(animate);
 resetGame();
 
 function resetGame() {
+  // Play background sound
+  backgroundSound.play();
+
   currentStatus = "waiting";
   lastTimestamp = undefined;
   sceneOffset = 0;
@@ -251,7 +260,9 @@ function animate(timestamp) {
         const [nextPlatform, perfectHit] = thePlatformTheStickHits();
         if (nextPlatform) {
           score += perfectHit ? 2 : 1;
-          scoreElement.innerText = score;
+
+          // Play win sound
+          winSound.play();
 
           if (perfectHit) {
             perfectElement.style.opacity = 1;
@@ -287,6 +298,9 @@ function animate(timestamp) {
         if (santaX > maxSantaX) {
           santaX = maxSantaX;
           currentStatus = "falling";
+
+          // Play lose sound
+          loseSound.play();
         }
       }
       break;
@@ -299,7 +313,7 @@ function animate(timestamp) {
         sticks.push({
           x: nextPlatform.x + nextPlatform.w,
           length: 0,
-          rotation: 0
+          rotation: 0,
         });
         currentStatus = "waiting";
       }
@@ -342,13 +356,13 @@ function thePlatformTheStickHits() {
   if (
     platformTheStickHits &&
     platformTheStickHits.x +
-    platformTheStickHits.w / 2 -
-    config.perfectAreaSize / 2 <
-    stickFarX &&
+      platformTheStickHits.w / 2 -
+      config.perfectAreaSize / 2 <
+      stickFarX &&
     stickFarX <
-    platformTheStickHits.x +
-    platformTheStickHits.w / 2 +
-    config.perfectAreaSize / 2
+      platformTheStickHits.x +
+        platformTheStickHits.w / 2 +
+        config.perfectAreaSize / 2
   )
     return [platformTheStickHits, true];
 
@@ -420,9 +434,9 @@ function drawSanta() {
   ctx.translate(
     santaX - config.santaWidth / 2,
     santaY +
-    config.canvasHeight -
-    config.platformHeight -
-    config.santaHeight / 2
+      config.canvasHeight -
+      config.platformHeight -
+      config.santaHeight / 2
   );
 
   ctx.fillRect(
@@ -626,7 +640,7 @@ function getHillY(windowX, baseHeight, amplitude, stretch) {
     Math.sinus(
       (sceneOffset * config.backgroundSpeedMultiplier + windowX) * stretch
     ) *
-    amplitude +
+      amplitude +
     sineBaseY
   );
 }
@@ -653,27 +667,30 @@ function addShadow(colour, depth) {
   return shadow;
 }
 
-
-housamzSignature('light');
+housamzSignature("light");
 // With jQuery
 $(document).on({
-  "contextmenu": function (e) {
+  contextmenu: function (e) {
     console.log("ctx menu button:", e.which);
 
     // Stop the context menu
     e.preventDefault();
   },
-  "mousedown": function (e) {
+  mousedown: function (e) {
     console.log("normal mouse down:", e.which);
   },
-  "mouseup": function (e) {
+  mouseup: function (e) {
     console.log("normal mouse up:", e.which);
-  }
+  },
 });
 window.onload = function () {
-  document.addEventListener("contextmenu", function (e) {
-    e.preventDefault();
-  }, false);
+  document.addEventListener(
+    "contextmenu",
+    function (e) {
+      e.preventDefault();
+    },
+    false
+  );
   document.addEventListener("keydown", function (e) {
     if (e.ctrlKey && e.shiftKey && e.key === "I") {
       disabledEvent(e);
@@ -681,7 +698,10 @@ window.onload = function () {
     if (e.ctrlKey && e.shiftKey && e.key === "J") {
       disabledEvent(e);
     }
-    if (e.key === "s" && (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)) {
+    if (
+      e.key === "s" &&
+      (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)
+    ) {
       disabledEvent(e);
     }
     if (e.ctrlKey && e.key === "u") {
@@ -702,5 +722,4 @@ window.onload = function () {
     e.preventDefault();
     e.stopPropagation();
   }
-
-}
+};

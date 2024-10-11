@@ -1,119 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>K-Walker | Bridge Game</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-</head>
-<style>
+  </head>
+  <style>
     html,
     body {
-        height: 100%;
-        margin: 0;
+      height: 100%;
+      margin: 0;
     }
 
     body {
-        font-family: Arial, Verdana, sans-serif;
-        cursor: grab;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: white;
-        background-color: #1e1a33;
+      font-family: Arial, Verdana, sans-serif;
+      cursor: grab;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      background-color: #1e1a33;
     }
 
     div,
     i {
-        user-select: none;
-        pointer-events: none;
+      user-select: none;
+      pointer-events: none;
     }
 
     i {
-        position: fixed;
-        color: white;
-        top: -10%;
-        z-index: 9999;
-        animation-name: snowflakes-fall, snowflakes-shake;
-        animation-duration: 10s, 3s;
-        animation-timing-function: linear, ease-in-out;
-        animation-iteration-count: infinite, infinite;
-        animation-play-state: running, running;
+      position: fixed;
+      color: white;
+      top: -10%;
+      z-index: 9999;
+      animation-name: snowflakes-fall, snowflakes-shake;
+      animation-duration: 10s, 3s;
+      animation-timing-function: linear, ease-in-out;
+      animation-iteration-count: infinite, infinite;
+      animation-play-state: running, running;
     }
 
     @keyframes snowflakes-fall {
-        0% {
-            top: -10%;
-        }
+      0% {
+        top: -10%;
+      }
 
-        100% {
-            top: 100%;
-        }
+      100% {
+        top: 100%;
+      }
     }
 
     @keyframes snowflakes-shake {
-        0% {
-            transform: translateX(0px);
-        }
+      0% {
+        transform: translateX(0px);
+      }
 
-        50% {
-            transform: translateX(80px);
-        }
+      50% {
+        transform: translateX(80px);
+      }
 
-        100% {
-            transform: translateX(0px);
-        }
+      100% {
+        transform: translateX(0px);
+      }
     }
-</style>
+  </style>
 
-<body>
+  <body>
     <script src="./index.js"></script>
     <script lang="js">
-        window.onload = function () {
-            document.addEventListener("contextmenu", function (e) {
-                e.preventDefault();
-            }, false);
+      window.onload = function () {
+          document.addEventListener("contextmenu", function (e) {
+              e.preventDefault();
+          }, false);
 
-            document.addEventListener("keydown", function (e) {
-                if (e.ctrlKey && e.shiftKey && e.key === "I") {
-                    disabledEvent(e);
-                }
+          document.addEventListener("keydown", function (e) {
+              if (e.ctrlKey && e.shiftKey && e.key === "I") {
+                  disabledEvent(e);
+              }
 
-                if (e.ctrlKey && e.shiftKey && e.key === "J") {
-                    disabledEvent(e);
-                }
+              if (e.ctrlKey && e.shiftKey && e.key === "J") {
+                  disabledEvent(e);
+              }
 
-                if (e.key === "s" && (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)) {
-                    disabledEvent(e);
-                }
+              if (e.key === "s" && (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)) {
+                  disabledEvent(e);
+              }
 
-                if (e.ctrlKey && e.key === "u") {
-                    disabledEvent(e);
-                }
+              if (e.ctrlKey && e.key === "u") {
+                  disabledEvent(e);
+              }
 
-                if (e.key === "F12") {
-                    disabledEvent(e);
-                }
-            }, false);
+              if (e.key === "F12") {
+                  disabledEvent(e);
+              }
+          }, false);
 
-            function disabledEvent(e) {
-                e.preventDefault();
-                e.stopPropagation();
-            }
-        };
+          function disabledEvent(e) {
+              e.preventDefault();
+              e.stopPropagation();
+          }
+      };
     </script>
 
-    <audio controls autoplay loop muted>
-        <source src="./space_trivia.mp3" type="audio/mpeg">
-    </audio>
-
-</body>
-
+    <!-- <audio controls autoplay loop>
+      <source src="./background.mp3" type="audio/mpeg" />
+    </audio> -->
+  </body>
 </html>
