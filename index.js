@@ -261,6 +261,8 @@ function animate(timestamp) {
         if (nextPlatform) {
           score += perfectHit ? 2 : 1;
 
+          scoreElement.innerText = score;
+
           // Play win sound
           winSound.play();
 
